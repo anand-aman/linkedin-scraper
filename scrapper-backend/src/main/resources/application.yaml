@@ -6,6 +6,13 @@ zenrows:
     api_key: ${ZENROWS_API_KEY:}
     base_url: https://api.zenrows.com/v1/
 
+cors:
+  allowed-origin-patterns:
+    - http://localhost:*
+    - http://127.0.0.1:*
+    - https://localhost:*
+    - https://127.0.0.1:*
+
 springdoc:
   api-docs:
     path: /api-docs
