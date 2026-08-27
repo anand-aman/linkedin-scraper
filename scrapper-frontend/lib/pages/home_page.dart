@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
   bool _isLoading = false;
 
   Future<void> _openApiDocs() async {
-    final docsUri = Uri.parse('${_apiService.baseUrl}/swagger-ui/index.html');
+    final docsUri = _apiService.swaggerUiUri;
     final opened =
         await launchUrl(docsUri, mode: LaunchMode.externalApplication);
 
