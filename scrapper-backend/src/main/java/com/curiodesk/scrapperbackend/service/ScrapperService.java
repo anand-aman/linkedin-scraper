@@ -38,8 +38,25 @@ public class ScrapperService {
                 .connectionCount(member.connectionCountLabel())
                 .profilePhotoUrl(member.profilePhotoUrl())
                 .languages(parsed.languages())
+                .experiences(mapExperiences(parsed.experience()))
                 .posts(mapPosts(parsed.posts()))
                 .build();
+    }
+
+    private List<LinkedInProfile.Experience> mapExperiences(List<ZenRowsResponse.Experience> experience) {
+        if (experience == null) {
+            return List.of();
+        }
+
+        return experience.stream()
+                .map(exp -> LinkedInProfile.Experience
+                        .builder()
+                        .companyName(exp.companyName())
+                        .description(exp.description())
+                        .jobTitle(exp.jobTitle())
+                        .location(exp.location())
+                        .build())
+                .toList();
     }
 
     private List<LinkedInProfile.Post> mapPosts(

@@ -73,6 +73,22 @@ public record ZenRowsResponse(
     public record Education() {
     }
 
-    public record Experience() {
-    }
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public record Experience(
+            @JsonProperty("company_linkedin_url")
+            String companyLinkedinUrl,
+
+            @JsonProperty("company_logo_url")
+            String companyLogoUrl,
+
+            @JsonProperty("company_name")
+            String companyName,
+
+            String description,
+
+            @JsonProperty("job_title")
+            String jobTitle,
+
+            String location
+    ) {}
 }

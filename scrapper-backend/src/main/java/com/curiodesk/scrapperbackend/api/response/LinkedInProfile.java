@@ -17,7 +17,8 @@ public record LinkedInProfile(
         String profilePhotoUrl,
         String coverImageUrl,
         List<String> languages,
-        List<Post> posts
+        List<Post> posts,
+        List<Experience> experiences
 ) {
     @Builder
     public record Post(
@@ -25,6 +26,13 @@ public record LinkedInProfile(
             Integer likeCount,
             String postUrl,
             String text
-    ) {
-    }
+    ) {}
+
+    @Builder
+    public record Experience(
+            String companyName,
+            String description,
+            String jobTitle,
+            String location
+    ) {}
 }
