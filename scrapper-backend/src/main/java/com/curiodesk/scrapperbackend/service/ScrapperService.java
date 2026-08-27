@@ -2,11 +2,13 @@ package com.curiodesk.scrapperbackend.service;
 
 import com.curiodesk.scrapperbackend.api.response.LinkedInProfile;
 import com.curiodesk.scrapperbackend.api.response.ZenRowsResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Slf4j
 public class ScrapperService {
 
     private final ZenRowsClient zenRowsClient;
@@ -16,7 +18,7 @@ public class ScrapperService {
     }
 
     public LinkedInProfile scrape(String url) {
-
+        log.info("Scraping LinkedIn profile for URL: {}", url);
         ZenRowsResponse response = zenRowsClient.fetchProfile(url);
 
         return mapToProfile(url, response);

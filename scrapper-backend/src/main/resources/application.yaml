@@ -3,5 +3,5 @@ spring:
     name: scrapper-backend
 
 zenrows:
-    api_key: ${ZENROWS_API_KEY}
+    api_key: ${ZENROWS_API_KEY:}
     base_url: https://api.zenrows.com/v1/
