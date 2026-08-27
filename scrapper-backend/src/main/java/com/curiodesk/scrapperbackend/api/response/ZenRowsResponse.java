@@ -14,7 +14,7 @@ public record ZenRowsResponse(
     @JsonIgnoreProperties(ignoreUnknown = true)
     public record Parsed(
             @JsonProperty("current_position")
-            String currentPosition,
+            CurrentPosition currentPosition,
 
             List<Education> education,
 
@@ -71,6 +71,22 @@ public record ZenRowsResponse(
     }
 
     public record Education() {
+    }
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public record CurrentPosition(
+            @JsonProperty("company_linkedin_url")
+            String companyLinkedinUrl,
+
+            @JsonProperty("company_logo_url")
+            String companyLogoUrl,
+
+            @JsonProperty("company_name")
+            String companyName,
+
+            @JsonProperty("job_title")
+            String jobTitle
+    ) {
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)

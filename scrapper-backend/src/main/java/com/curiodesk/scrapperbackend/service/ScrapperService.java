@@ -34,14 +34,32 @@ public class ScrapperService {
                 .profileUrl(url)
                 .vanityUrl(member.vanityUrl())
                 .fullName(member.fullName())
+                .headline(parsed.currentPosition() != null ? parsed.currentPosition().jobTitle() : null)
+                .currentPosition(mapCurrentPosition(parsed.currentPosition()))
                 .countryCode(member.countryCode())
                 .followerCount(member.followerCount())
                 .location(member.location())
                 .connectionCount(member.connectionCountLabel())
                 .profilePhotoUrl(member.profilePhotoUrl())
+                .coverImageUrl(member.coverImageUrl())
                 .languages(parsed.languages())
                 .experiences(mapExperiences(parsed.experience()))
                 .posts(mapPosts(parsed.posts()))
+                .build();
+    }
+
+    private LinkedInProfile.CurrentPosition mapCurrentPosition(
+            ZenRowsResponse.CurrentPosition currentPosition
+    ) {
+        if (currentPosition == null) {
+            return null;
+        }
+
+        return LinkedInProfile.CurrentPosition.builder()
+                .companyName(currentPosition.companyName())
+                .companyLinkedinUrl(currentPosition.companyLinkedinUrl())
+                .companyLogoUrl(currentPosition.companyLogoUrl())
+                .jobTitle(currentPosition.jobTitle())
                 .build();
     }
 

@@ -17,6 +17,8 @@ public record LinkedInProfile(
         String fullName,
         @Schema(description = "Profile headline")
         String headline,
+        @Schema(description = "Current position")
+        CurrentPosition currentPosition,
         @Schema(description = "Profile location")
         String location,
         @Schema(description = "Country code from LinkedIn profile")
@@ -60,5 +62,18 @@ public record LinkedInProfile(
             String jobTitle,
             @Schema(description = "Location for this role")
             String location
+    ) {}
+
+    @Builder
+    @Schema(description = "Current position details")
+    public record CurrentPosition(
+            @Schema(description = "Current company name")
+            String companyName,
+            @Schema(description = "Current company LinkedIn URL")
+            String companyLinkedinUrl,
+            @Schema(description = "Current company logo URL")
+            String companyLogoUrl,
+            @Schema(description = "Current role title")
+            String jobTitle
     ) {}
 }
