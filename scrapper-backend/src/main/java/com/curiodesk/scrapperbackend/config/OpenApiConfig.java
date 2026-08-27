@@ -10,8 +10,8 @@ import org.springframework.context.annotation.Configuration;
 @OpenAPIDefinition(
         info = @Info(
                 title = "Scrapper Backend API",
-                version = "v1",
-                description = "API for scraping LinkedIn profile data",
+                version = "v2",
+                description = "API for scraping LinkedIn profile data with parser types: parsed, html, hybrid (default)",
                 contact = @Contact(name = "Scrapper Backend")
         ),
         servers = @Server(url = "/", description = "Default server")

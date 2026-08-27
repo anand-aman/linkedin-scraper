@@ -26,9 +26,10 @@ A multi-module LinkedIn profile scraper project with:
 4. Swagger UI:
    - `http://localhost:8080/swagger-ui.html`
 5. LinkedIn scrape endpoints:
-   - `POST /api/linkedin` (v1, parsed payload)
-   - `POST /api/v2/linkedin` (v2, HTML parser)
-   - `POST /api/v3/linkedin` (v3, hybrid parsed + HTML merge; recommended)
+   - `POST /api/linkedin` with optional query param `type`
+   - `type=hybrid` or omitted: hybrid parser (default)
+   - `type=html`: HTML parser response
+   - `type=parsed`: parsed JSON response
 
 ## Frontend setup and run
 
