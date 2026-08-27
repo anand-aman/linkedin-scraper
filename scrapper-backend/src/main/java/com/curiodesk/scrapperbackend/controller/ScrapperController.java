@@ -2,7 +2,7 @@ package com.curiodesk.scrapperbackend.controller;
 
 import com.curiodesk.scrapperbackend.api.request.ScrapeProfileRequest;
 import com.curiodesk.scrapperbackend.api.response.ErrorResponse;
-import com.curiodesk.scrapperbackend.api.response.LinkedInProfile;
+import com.curiodesk.scrapperbackend.api.response.LinkedInProfileV1;
 import com.curiodesk.scrapperbackend.exception.BadRequestException;
 import com.curiodesk.scrapperbackend.service.ScrapperService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -31,7 +31,7 @@ public class ScrapperController {
             @ApiResponse(
                     responseCode = "200",
                     description = "LinkedIn profile scraped successfully",
-                    content = @Content(schema = @Schema(implementation = LinkedInProfile.class))
+                    content = @Content(schema = @Schema(implementation = LinkedInProfileV1.class))
             ),
             @ApiResponse(
                     responseCode = "400",
@@ -49,7 +49,7 @@ public class ScrapperController {
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class))
             )
     })
-    public ResponseEntity<LinkedInProfile> scrapProfile(
+    public ResponseEntity<LinkedInProfileV1> scrapProfile(
             @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     required = true,
                     description = "LinkedIn scrape request payload"

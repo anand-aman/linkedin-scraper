@@ -1,6 +1,6 @@
 package com.curiodesk.scrapperbackend.service;
 
-import com.curiodesk.scrapperbackend.api.response.LinkedInProfile;
+import com.curiodesk.scrapperbackend.api.response.LinkedInProfileV1;
 import com.curiodesk.scrapperbackend.api.response.ZenRowsResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,20 +17,20 @@ public class ScrapperService {
         this.zenRowsClient = zenRowsClient;
     }
 
-    public LinkedInProfile scrape(String url) {
+    public LinkedInProfileV1 scrape(String url) {
         log.info("Scraping LinkedIn profile for URL: {}", url);
         ZenRowsResponse response = zenRowsClient.fetchProfile(url);
 
         return mapToProfile(url, response);
     }
 
-    private LinkedInProfile mapToProfile(String url, ZenRowsResponse response) {
+    private LinkedInProfileV1 mapToProfile(String url, ZenRowsResponse response) {
 
         ZenRowsResponse.Parsed parsed = response.parsed();
 
         ZenRowsResponse.Member member = parsed.member();
 
-        return LinkedInProfile.builder()
+        return LinkedInProfileV1.builder()
                 .profileUrl(url)
                 .vanityUrl(member.vanityUrl())
                 .fullName(member.fullName())
@@ -48,14 +48,14 @@ public class ScrapperService {
                 .build();
     }
 
-    private LinkedInProfile.CurrentPosition mapCurrentPosition(
+    private LinkedInProfileV1.CurrentPosition mapCurrentPosition(
             ZenRowsResponse.CurrentPosition currentPosition
     ) {
         if (currentPosition == null) {
             return null;
         }
 
-        return LinkedInProfile.CurrentPosition.builder()
+        return LinkedInProfileV1.CurrentPosition.builder()
                 .companyName(currentPosition.companyName())
                 .companyLinkedinUrl(currentPosition.companyLinkedinUrl())
                 .companyLogoUrl(currentPosition.companyLogoUrl())
@@ -63,13 +63,13 @@ public class ScrapperService {
                 .build();
     }
 
-    private List<LinkedInProfile.Experience> mapExperiences(List<ZenRowsResponse.Experience> experience) {
+    private List<LinkedInProfileV1.Experience> mapExperiences(List<ZenRowsResponse.Experience> experience) {
         if (experience == null) {
             return List.of();
         }
 
         return experience.stream()
-                .map(exp -> LinkedInProfile.Experience
+                .map(exp -> LinkedInProfileV1.Experience
                         .builder()
                         .companyName(exp.companyName())
                         .description(exp.description())
@@ -79,7 +79,7 @@ public class ScrapperService {
                 .toList();
     }
 
-    private List<LinkedInProfile.Post> mapPosts(
+    private List<LinkedInProfileV1.Post> mapPosts(
             List<ZenRowsResponse.Post> posts
     ) {
         if (posts == null) {
@@ -87,7 +87,7 @@ public class ScrapperService {
         }
 
         return posts.stream()
-                .map(post -> LinkedInProfile.Post
+                .map(post -> LinkedInProfileV1.Post
                         .builder()
                         .text(post.text())
                         .datePublished(post.datePublished())

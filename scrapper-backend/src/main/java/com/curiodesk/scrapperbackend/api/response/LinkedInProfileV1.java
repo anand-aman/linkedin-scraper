@@ -8,7 +8,7 @@ import java.util.List;
 
 @Builder
 @Schema(description = "Normalized LinkedIn profile response")
-public record LinkedInProfile(
+public record LinkedInProfileV1(
         @Schema(description = "Original LinkedIn URL that was scraped")
         String profileUrl,
         @Schema(description = "LinkedIn vanity URL")

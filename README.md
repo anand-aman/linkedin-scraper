@@ -1,1 +1,38 @@
 # linkedin-scrapper
+
+A multi-module LinkedIn profile scraper project with:
+- **Backend**: Spring Boot API (`scrapper-backend`) that scrapes and returns normalized LinkedIn profile data.
+- **Frontend**: Flutter Web app (`scrapper-frontend`) that accepts a LinkedIn URL and displays profile details.
+
+## Project structure
+
+- `scrapper-backend` - Java/Spring Boot backend service
+- `scrapper-frontend` - Flutter web frontend
+
+## Prerequisites
+
+- Java 21
+- Flutter SDK (with web support enabled)
+- Chrome (or another Flutter-supported web browser)
+
+## Backend setup and run
+
+1. Set the ZenRows API key:
+   - PowerShell: `$env:ZENROWS_API_KEY="your_api_key"`
+2. Start the backend from repository root:
+   - `.\scrapper-backend\mvnw.cmd -f .\scrapper-backend\pom.xml spring-boot:run`
+3. Backend will run on:
+   - `http://localhost:8080`
+4. Swagger UI:
+   - `http://localhost:8080/swagger-ui.html`
+
+## Frontend setup and run
+
+1. Move to frontend module:
+   - `cd .\scrapper-frontend`
+2. Install dependencies:
+   - `flutter pub get`
+3. Run on web:
+   - `flutter run -d chrome`
+
+The frontend calls the backend at `http://localhost:8080/api/linkedin` by default.
