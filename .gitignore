@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+/scrapper-frontend/.flutter-plugins-dependencies
+/scrapper-frontend/.flutter-plugins
+/scrapper-frontend/.packages
+/scrapper-frontend/.dart_tool/
