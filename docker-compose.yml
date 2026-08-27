@@ -1,0 +1,26 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: scrapper-backend/Dockerfile
+    environment:
+      ZENROWS_API_KEY: ${ZENROWS_API_KEY:-}
+    ports:
+      - "8080:8080"
+    networks:
+      - scrapper-network
+
+  frontend:
+    build:
+      context: .
+      dockerfile: scrapper-frontend/Dockerfile
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+    networks:
+      - scrapper-network
+
+networks:
+  scrapper-network:
+    driver: bridge
