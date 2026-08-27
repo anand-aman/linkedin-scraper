@@ -5,3 +5,9 @@ spring:
 zenrows:
     api_key: ${ZENROWS_API_KEY:}
     base_url: https://api.zenrows.com/v1/
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
