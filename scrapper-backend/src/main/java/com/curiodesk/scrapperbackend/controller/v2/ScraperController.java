@@ -2,7 +2,7 @@ package com.curiodesk.scrapperbackend.controller.v2;
 
 import com.curiodesk.scrapperbackend.api.request.ScrapeProfileRequest;
 import com.curiodesk.scrapperbackend.api.response.LinkedInProfileV2;
-import com.curiodesk.scrapperbackend.service.LinkedInScraperService;
+import com.curiodesk.scrapperbackend.service.HtmlScraperService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,16 +13,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v2")
 public class ScraperController {
 
-    private final LinkedInScraperService scraperService;
+    private final HtmlScraperService scraperService;
 
     public ScraperController(
-            LinkedInScraperService scraperService) {
+            HtmlScraperService scraperService) {
 
         this.scraperService = scraperService;
     }
 
     @PostMapping("/linkedin")
-    public ResponseEntity<LinkedInProfileV2> scrape(@RequestBody ScrapeProfileRequest request) throws Exception {
+    public ResponseEntity<LinkedInProfileV2> scrape(@RequestBody ScrapeProfileRequest request) {
 
         LinkedInProfileV2 profile = scraperService.scrapeProfileFromHtml(request.url());
 

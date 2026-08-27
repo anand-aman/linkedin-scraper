@@ -9,11 +9,11 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class ScrapperService {
+public class ParsedJsonScraperService {
 
     private final ZenRowsClient zenRowsClient;
 
-    public ScrapperService(ZenRowsClient zenRowsClient) {
+    public ParsedJsonScraperService(ZenRowsClient zenRowsClient) {
         this.zenRowsClient = zenRowsClient;
     }
 
@@ -21,30 +21,37 @@ public class ScrapperService {
         log.info("Scraping LinkedIn profile for URL: {}", url);
         ZenRowsResponse response = zenRowsClient.fetchProfile(url);
 
-        return mapToProfile(url, response);
+        return scrapeFromParsedField(url, response);
     }
 
-    private LinkedInProfileV1 mapToProfile(String url, ZenRowsResponse response) {
+    LinkedInProfileV1 scrapeFromParsedField(String url, ZenRowsResponse response) {
 
-        ZenRowsResponse.Parsed parsed = response.parsed();
+        ZenRowsResponse.Parsed parsed = response != null
+                ? response.parsed()
+                : null;
 
-        ZenRowsResponse.Member member = parsed.member();
+        ZenRowsResponse.Member member = parsed != null
+                ? parsed.member()
+                : null;
+        ZenRowsResponse.CurrentPosition currentPosition = parsed != null
+                ? parsed.currentPosition()
+                : null;
 
         return LinkedInProfileV1.builder()
                 .profileUrl(url)
-                .vanityUrl(member.vanityUrl())
-                .fullName(member.fullName())
-                .headline(parsed.currentPosition() != null ? parsed.currentPosition().jobTitle() : null)
-                .currentPosition(mapCurrentPosition(parsed.currentPosition()))
-                .countryCode(member.countryCode())
-                .followerCount(member.followerCount())
-                .location(member.location())
-                .connectionCount(member.connectionCountLabel())
-                .profilePhotoUrl(member.profilePhotoUrl())
-                .coverImageUrl(member.coverImageUrl())
-                .languages(parsed.languages())
-                .experiences(mapExperiences(parsed.experience()))
-                .posts(mapPosts(parsed.posts()))
+                .vanityUrl(member != null ? member.vanityUrl() : null)
+                .fullName(member != null ? member.fullName() : null)
+                .headline(currentPosition != null ? currentPosition.jobTitle() : null)
+                .currentPosition(mapCurrentPosition(currentPosition))
+                .countryCode(member != null ? member.countryCode() : null)
+                .followerCount(member != null ? member.followerCount() : null)
+                .location(member != null ? member.location() : null)
+                .connectionCount(member != null ? member.connectionCountLabel() : null)
+                .profilePhotoUrl(member != null ? member.profilePhotoUrl() : null)
+                .coverImageUrl(member != null ? member.coverImageUrl() : null)
+                .languages(parsed != null && parsed.languages() != null ? parsed.languages() : List.of())
+                .experiences(mapExperiences(parsed != null ? parsed.experience() : null))
+                .posts(mapPosts(parsed != null ? parsed.posts() : null))
                 .build();
     }
 

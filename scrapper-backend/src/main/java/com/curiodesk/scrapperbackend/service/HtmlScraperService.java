@@ -10,17 +10,17 @@ import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.ObjectMapper;
 
 @Service
-public class LinkedInScraperService {
+public class HtmlScraperService {
 
     private final ObjectMapper objectMapper;
     private final ZenRowsClient zenRowsClient;
 
-    public LinkedInScraperService(ObjectMapper objectMapper, ZenRowsClient zenRowsClient) {
+    public HtmlScraperService(ObjectMapper objectMapper, ZenRowsClient zenRowsClient) {
         this.objectMapper = objectMapper;
         this.zenRowsClient = zenRowsClient;
     }
 
-    public LinkedInProfileV2 scrapeProfileFromHtml(String url) throws Exception {
+    public LinkedInProfileV2 scrapeProfileFromHtml(String url) {
 
         ZenRowsResponse response = zenRowsClient.fetchProfile(url);
 
@@ -33,7 +33,7 @@ public class LinkedInScraperService {
         return scrapeHtml(html);
     }
 
-    public LinkedInProfileV2 scrapeHtml(String html) throws Exception {
+    public LinkedInProfileV2 scrapeHtml(String html) {
 
         Document document = Jsoup.parse(html);
 
@@ -114,7 +114,7 @@ public class LinkedInScraperService {
 
     private void extractJsonLd(
             Document document,
-            LinkedInProfileV2 profile) throws Exception {
+            LinkedInProfileV2 profile) {
 
         for (Element script :
                 document.select("script[type=application/ld+json]")) {
