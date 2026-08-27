@@ -1,6 +1,6 @@
 package com.curiodesk.scrapperbackend.service;
 
-import com.curiodesk.scrapperbackend.api.response.LinkedInProfileV2;
+import com.curiodesk.scrapperbackend.api.response.HtmlLinkedInProfileResponse;
 import com.curiodesk.scrapperbackend.api.response.ZenRowsResponse;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -20,7 +20,7 @@ public class HtmlScraperService {
         this.zenRowsClient = zenRowsClient;
     }
 
-    public LinkedInProfileV2 scrapeProfileFromHtml(String url) {
+    public HtmlLinkedInProfileResponse scrapeProfileFromHtml(String url) {
 
         ZenRowsResponse response = zenRowsClient.fetchProfile(url);
 
@@ -33,11 +33,11 @@ public class HtmlScraperService {
         return scrapeHtml(html);
     }
 
-    public LinkedInProfileV2 scrapeHtml(String html) {
+    public HtmlLinkedInProfileResponse scrapeHtml(String html) {
 
         Document document = Jsoup.parse(html);
 
-        LinkedInProfileV2 profile = new LinkedInProfileV2();
+        HtmlLinkedInProfileResponse profile = new HtmlLinkedInProfileResponse();
 
         extractBasicProfile(document, profile);
         extractImages(document, profile);
@@ -49,7 +49,7 @@ public class HtmlScraperService {
 
     private void extractBasicProfile(
             Document document,
-            LinkedInProfileV2 profile) {
+            HtmlLinkedInProfileResponse profile) {
 
         // Name
         Element name = document.selectFirst(
@@ -87,7 +87,7 @@ public class HtmlScraperService {
 
     private void extractImages(
             Document document,
-            LinkedInProfileV2 profile) {
+            HtmlLinkedInProfileResponse profile) {
 
         // Profile image
         Element profileImage = document.selectFirst(
@@ -114,7 +114,7 @@ public class HtmlScraperService {
 
     private void extractJsonLd(
             Document document,
-            LinkedInProfileV2 profile) {
+            HtmlLinkedInProfileResponse profile) {
 
         for (Element script :
                 document.select("script[type=application/ld+json]")) {
@@ -140,7 +140,7 @@ public class HtmlScraperService {
 
     private void processJsonLdNode(
             JsonNode node,
-            LinkedInProfileV2 profile) {
+            HtmlLinkedInProfileResponse profile) {
 
         if (node == null || node.isNull()) {
             return;
@@ -177,7 +177,7 @@ public class HtmlScraperService {
 
     private void extractPerson(
             JsonNode person,
-            LinkedInProfileV2 profile) {
+            HtmlLinkedInProfileResponse profile) {
 
         if (profile.getName() == null) {
             profile.setName(
@@ -268,8 +268,8 @@ public class HtmlScraperService {
 
             for (JsonNode educationNode : alumni) {
 
-                LinkedInProfileV2.Education education =
-                        new LinkedInProfileV2.Education();
+                HtmlLinkedInProfileResponse.Education education =
+                        new HtmlLinkedInProfileResponse.Education();
 
                 education.setInstitution(
                         text(educationNode, "name")
@@ -304,8 +304,8 @@ public class HtmlScraperService {
 
             for (JsonNode companyNode : worksFor) {
 
-                LinkedInProfileV2.Experience experience =
-                        new LinkedInProfileV2.Experience();
+                HtmlLinkedInProfileResponse.Experience experience =
+                        new HtmlLinkedInProfileResponse.Experience();
 
                 experience.setCompany(
                         text(companyNode, "name")
@@ -328,10 +328,10 @@ public class HtmlScraperService {
 
     private void extractArticle(
             JsonNode article,
-            LinkedInProfileV2 profile) {
+            HtmlLinkedInProfileResponse profile) {
 
-        LinkedInProfileV2.Article result =
-                new LinkedInProfileV2.Article();
+        HtmlLinkedInProfileResponse.Article result =
+                new HtmlLinkedInProfileResponse.Article();
 
         result.setTitle(
                 text(article, "headline")
@@ -377,10 +377,10 @@ public class HtmlScraperService {
 
     private void extractPost(
             JsonNode post,
-            LinkedInProfileV2 profile) {
+            HtmlLinkedInProfileResponse profile) {
 
-        LinkedInProfileV2.Post result =
-                new LinkedInProfileV2.Post();
+        HtmlLinkedInProfileResponse.Post result =
+                new HtmlLinkedInProfileResponse.Post();
 
         result.setText(
                 text(post, "text")
@@ -412,7 +412,7 @@ public class HtmlScraperService {
 
     private void extractLinks(
             Document document,
-            LinkedInProfileV2 profile) {
+            HtmlLinkedInProfileResponse profile) {
 
         for (Element link :
                 document.select("a[href]")) {

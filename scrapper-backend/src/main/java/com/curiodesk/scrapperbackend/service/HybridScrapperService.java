@@ -1,8 +1,8 @@
 package com.curiodesk.scrapperbackend.service;
 
-import com.curiodesk.scrapperbackend.api.response.LinkedInProfileV1;
-import com.curiodesk.scrapperbackend.api.response.LinkedInProfileV2;
-import com.curiodesk.scrapperbackend.api.response.LinkedInProfileV3;
+import com.curiodesk.scrapperbackend.api.response.ParsedLinkedInProfileResponse;
+import com.curiodesk.scrapperbackend.api.response.HtmlLinkedInProfileResponse;
+import com.curiodesk.scrapperbackend.api.response.HybridLinkedInProfileResponse;
 import com.curiodesk.scrapperbackend.api.response.ZenRowsResponse;
 import org.springframework.stereotype.Service;
 
@@ -39,28 +39,28 @@ public class HybridScrapperService {
         this.htmlScraperService = htmlScraperService;
     }
 
-    public LinkedInProfileV3 scrape(String url) {
+    public HybridLinkedInProfileResponse scrape(String url) {
         ZenRowsResponse response = zenRowsClient.fetchProfile(url);
 
-        LinkedInProfileV1 parsedProfile = parsedJsonScraperService.scrapeFromParsedField(
+        ParsedLinkedInProfileResponse parsedProfile = parsedJsonScraperService.scrapeFromParsedField(
                 url,
                 response
         );
 
-        LinkedInProfileV2 htmlProfile = parseHtmlProfile(response);
+        HtmlLinkedInProfileResponse htmlProfile = parseHtmlProfile(response);
 
-        List<LinkedInProfileV3.Experience> mergedExperience = mergeExperience(
+        List<HybridLinkedInProfileResponse.Experience> mergedExperience = mergeExperience(
                 parsedProfile.experiences(),
                 htmlProfile.getExperience(),
                 htmlProfile.getEducation()
         );
 
-        List<LinkedInProfileV3.Education> mergedEducation = mergeEducation(
+        List<HybridLinkedInProfileResponse.Education> mergedEducation = mergeEducation(
                 htmlProfile.getEducation(),
                 htmlProfile.getExperience()
         );
 
-        return LinkedInProfileV3.builder()
+        return HybridLinkedInProfileResponse.builder()
                 .profileUrl(firstNonBlank(
                         parsedProfile.profileUrl(),
                         firstNonBlank(htmlProfile.getProfileUrl(), url)
@@ -84,24 +84,24 @@ public class HybridScrapperService {
                 .build();
     }
 
-    private LinkedInProfileV2 parseHtmlProfile(ZenRowsResponse response) {
+    private HtmlLinkedInProfileResponse parseHtmlProfile(ZenRowsResponse response) {
         String html = response != null ? response.html() : null;
 
         if (html == null || html.isBlank()) {
-            return new LinkedInProfileV2();
+            return new HtmlLinkedInProfileResponse();
         }
 
         return htmlScraperService.scrapeHtml(html);
     }
 
-    private LinkedInProfileV3.CurrentPosition mapCurrentPosition(
-            LinkedInProfileV1.CurrentPosition currentPosition
+    private HybridLinkedInProfileResponse.CurrentPosition mapCurrentPosition(
+            ParsedLinkedInProfileResponse.CurrentPosition currentPosition
     ) {
         if (currentPosition == null) {
             return null;
         }
 
-        return LinkedInProfileV3.CurrentPosition.builder()
+        return HybridLinkedInProfileResponse.CurrentPosition.builder()
                 .companyName(currentPosition.companyName())
                 .companyLinkedinUrl(currentPosition.companyLinkedinUrl())
                 .companyLogoUrl(currentPosition.companyLogoUrl())
@@ -109,17 +109,17 @@ public class HybridScrapperService {
                 .build();
     }
 
-    private List<LinkedInProfileV3.Post> mergePosts(
-            List<LinkedInProfileV1.Post> parsedPosts,
-            List<LinkedInProfileV2.Post> htmlPosts
+    private List<HybridLinkedInProfileResponse.Post> mergePosts(
+            List<ParsedLinkedInProfileResponse.Post> parsedPosts,
+            List<HtmlLinkedInProfileResponse.Post> htmlPosts
     ) {
-        List<LinkedInProfileV3.Post> normalizedHtml = mapHtmlPosts(htmlPosts);
+        List<HybridLinkedInProfileResponse.Post> normalizedHtml = mapHtmlPosts(htmlPosts);
 
         if (!normalizedHtml.isEmpty()) {
             return dedupePosts(normalizedHtml);
         }
 
-        List<LinkedInProfileV3.Post> normalizedParsed = mapParsedPosts(parsedPosts);
+        List<HybridLinkedInProfileResponse.Post> normalizedParsed = mapParsedPosts(parsedPosts);
 
         if (!normalizedParsed.isEmpty()) {
             return dedupePosts(normalizedParsed);
@@ -128,13 +128,13 @@ public class HybridScrapperService {
         return List.of();
     }
 
-    private List<LinkedInProfileV3.Post> mapParsedPosts(List<LinkedInProfileV1.Post> posts) {
+    private List<HybridLinkedInProfileResponse.Post> mapParsedPosts(List<ParsedLinkedInProfileResponse.Post> posts) {
         if (posts == null) {
             return List.of();
         }
 
         return posts.stream()
-                .map(post -> LinkedInProfileV3.Post.builder()
+                .map(post -> HybridLinkedInProfileResponse.Post.builder()
                         .datePublished(post.datePublished())
                         .likeCount(post.likeCount())
                         .postUrl(post.postUrl())
@@ -143,13 +143,13 @@ public class HybridScrapperService {
                 .toList();
     }
 
-    private List<LinkedInProfileV3.Post> mapHtmlPosts(List<LinkedInProfileV2.Post> posts) {
+    private List<HybridLinkedInProfileResponse.Post> mapHtmlPosts(List<HtmlLinkedInProfileResponse.Post> posts) {
         if (posts == null) {
             return List.of();
         }
 
         return posts.stream()
-                .map(post -> LinkedInProfileV3.Post.builder()
+                .map(post -> HybridLinkedInProfileResponse.Post.builder()
                         .datePublished(post.getPublishedDate())
                         .likeCount(toInteger(post.getLikes()))
                         .postUrl(post.getUrl())
@@ -158,10 +158,10 @@ public class HybridScrapperService {
                 .toList();
     }
 
-    private List<LinkedInProfileV3.Post> dedupePosts(List<LinkedInProfileV3.Post> posts) {
-        Map<String, LinkedInProfileV3.Post> deduped = new LinkedHashMap<>();
+    private List<HybridLinkedInProfileResponse.Post> dedupePosts(List<HybridLinkedInProfileResponse.Post> posts) {
+        Map<String, HybridLinkedInProfileResponse.Post> deduped = new LinkedHashMap<>();
 
-        for (LinkedInProfileV3.Post post : posts) {
+        for (HybridLinkedInProfileResponse.Post post : posts) {
             String key = firstNonBlank(
                     normalize(post.postUrl()),
                     normalize(post.text())
@@ -177,17 +177,17 @@ public class HybridScrapperService {
         return new ArrayList<>(deduped.values());
     }
 
-    private List<LinkedInProfileV3.Article> mergeArticles(List<LinkedInProfileV2.Article> htmlArticles) {
+    private List<HybridLinkedInProfileResponse.Article> mergeArticles(List<HtmlLinkedInProfileResponse.Article> htmlArticles) {
         return dedupeArticles(mapHtmlArticles(htmlArticles));
     }
 
-    private List<LinkedInProfileV3.Article> mapHtmlArticles(List<LinkedInProfileV2.Article> articles) {
+    private List<HybridLinkedInProfileResponse.Article> mapHtmlArticles(List<HtmlLinkedInProfileResponse.Article> articles) {
         if (articles == null) {
             return List.of();
         }
 
         return articles.stream()
-                .map(article -> LinkedInProfileV3.Article.builder()
+                .map(article -> HybridLinkedInProfileResponse.Article.builder()
                         .title(article.getTitle())
                         .url(article.getUrl())
                         .publishedDate(article.getPublishedDate())
@@ -197,10 +197,10 @@ public class HybridScrapperService {
                 .toList();
     }
 
-    private List<LinkedInProfileV3.Article> dedupeArticles(List<LinkedInProfileV3.Article> articles) {
-        Map<String, LinkedInProfileV3.Article> deduped = new LinkedHashMap<>();
+    private List<HybridLinkedInProfileResponse.Article> dedupeArticles(List<HybridLinkedInProfileResponse.Article> articles) {
+        Map<String, HybridLinkedInProfileResponse.Article> deduped = new LinkedHashMap<>();
 
-        for (LinkedInProfileV3.Article article : articles) {
+        for (HybridLinkedInProfileResponse.Article article : articles) {
             String key = firstNonBlank(
                     normalize(article.url()),
                     normalize(article.title())
@@ -216,22 +216,22 @@ public class HybridScrapperService {
         return new ArrayList<>(deduped.values());
     }
 
-    private List<LinkedInProfileV3.Experience> mergeExperience(
-            List<LinkedInProfileV1.Experience> parsedExperience,
-            List<LinkedInProfileV2.Experience> htmlExperience,
-            List<LinkedInProfileV2.Education> htmlEducation
+    private List<HybridLinkedInProfileResponse.Experience> mergeExperience(
+            List<ParsedLinkedInProfileResponse.Experience> parsedExperience,
+            List<HtmlLinkedInProfileResponse.Experience> htmlExperience,
+            List<HtmlLinkedInProfileResponse.Education> htmlEducation
     ) {
-        List<LinkedInProfileV3.Experience> primary = new ArrayList<>();
+        List<HybridLinkedInProfileResponse.Experience> primary = new ArrayList<>();
 
         if (htmlExperience != null) {
-            for (LinkedInProfileV2.Experience item : htmlExperience) {
+            for (HtmlLinkedInProfileResponse.Experience item : htmlExperience) {
                 String company = item.getCompany();
 
                 if (looksLikeEducation(company)) {
                     continue;
                 }
 
-                primary.add(LinkedInProfileV3.Experience.builder()
+                primary.add(HybridLinkedInProfileResponse.Experience.builder()
                         .companyName(company)
                         .companyUrl(item.getCompanyUrl())
                         .location(item.getLocation())
@@ -240,14 +240,14 @@ public class HybridScrapperService {
         }
 
         if (htmlEducation != null) {
-            for (LinkedInProfileV2.Education item : htmlEducation) {
+            for (HtmlLinkedInProfileResponse.Education item : htmlEducation) {
                 String institution = item.getInstitution();
 
                 if (looksLikeEducation(institution)) {
                     continue;
                 }
 
-                primary.add(LinkedInProfileV3.Experience.builder()
+                primary.add(HybridLinkedInProfileResponse.Experience.builder()
                         .companyName(institution)
                         .companyUrl(item.getInstitutionUrl())
                         .build());
@@ -262,8 +262,8 @@ public class HybridScrapperService {
             return List.of();
         }
 
-        List<LinkedInProfileV3.Experience> fallback = parsedExperience.stream()
-                .map(item -> LinkedInProfileV3.Experience.builder()
+        List<HybridLinkedInProfileResponse.Experience> fallback = parsedExperience.stream()
+                .map(item -> HybridLinkedInProfileResponse.Experience.builder()
                         .companyName(item.companyName())
                         .description(item.description())
                         .jobTitle(item.jobTitle())
@@ -274,19 +274,19 @@ public class HybridScrapperService {
         return dedupeExperience(fallback);
     }
 
-    private List<LinkedInProfileV3.Education> mergeEducation(
-            List<LinkedInProfileV2.Education> htmlEducation,
-            List<LinkedInProfileV2.Experience> htmlExperience
+    private List<HybridLinkedInProfileResponse.Education> mergeEducation(
+            List<HtmlLinkedInProfileResponse.Education> htmlEducation,
+            List<HtmlLinkedInProfileResponse.Experience> htmlExperience
     ) {
-        List<LinkedInProfileV3.Education> result = new ArrayList<>();
+        List<HybridLinkedInProfileResponse.Education> result = new ArrayList<>();
 
         if (htmlEducation != null) {
-            for (LinkedInProfileV2.Education item : htmlEducation) {
+            for (HtmlLinkedInProfileResponse.Education item : htmlEducation) {
                 if (!looksLikeEducation(item.getInstitution()) && looksLikeCompany(item.getInstitution())) {
                     continue;
                 }
 
-                result.add(LinkedInProfileV3.Education.builder()
+                result.add(HybridLinkedInProfileResponse.Education.builder()
                         .institution(item.getInstitution())
                         .institutionUrl(item.getInstitutionUrl())
                         .startDate(item.getStartDate())
@@ -296,12 +296,12 @@ public class HybridScrapperService {
         }
 
         if (htmlExperience != null) {
-            for (LinkedInProfileV2.Experience item : htmlExperience) {
+            for (HtmlLinkedInProfileResponse.Experience item : htmlExperience) {
                 if (!looksLikeEducation(item.getCompany())) {
                     continue;
                 }
 
-                result.add(LinkedInProfileV3.Education.builder()
+                result.add(HybridLinkedInProfileResponse.Education.builder()
                         .institution(item.getCompany())
                         .institutionUrl(item.getCompanyUrl())
                         .build());
@@ -311,10 +311,10 @@ public class HybridScrapperService {
         return dedupeEducation(result);
     }
 
-    private List<LinkedInProfileV3.Experience> dedupeExperience(List<LinkedInProfileV3.Experience> experience) {
-        Map<String, LinkedInProfileV3.Experience> deduped = new LinkedHashMap<>();
+    private List<HybridLinkedInProfileResponse.Experience> dedupeExperience(List<HybridLinkedInProfileResponse.Experience> experience) {
+        Map<String, HybridLinkedInProfileResponse.Experience> deduped = new LinkedHashMap<>();
 
-        for (LinkedInProfileV3.Experience item : experience) {
+        for (HybridLinkedInProfileResponse.Experience item : experience) {
             String key = firstNonBlank(
                     normalize(item.companyName()),
                     normalize(item.companyUrl())
@@ -330,10 +330,10 @@ public class HybridScrapperService {
         return new ArrayList<>(deduped.values());
     }
 
-    private List<LinkedInProfileV3.Education> dedupeEducation(List<LinkedInProfileV3.Education> education) {
-        Map<String, LinkedInProfileV3.Education> deduped = new LinkedHashMap<>();
+    private List<HybridLinkedInProfileResponse.Education> dedupeEducation(List<HybridLinkedInProfileResponse.Education> education) {
+        Map<String, HybridLinkedInProfileResponse.Education> deduped = new LinkedHashMap<>();
 
-        for (LinkedInProfileV3.Education item : education) {
+        for (HybridLinkedInProfileResponse.Education item : education) {
             String key = firstNonBlank(
                     normalize(item.institution()),
                     normalize(item.institutionUrl())

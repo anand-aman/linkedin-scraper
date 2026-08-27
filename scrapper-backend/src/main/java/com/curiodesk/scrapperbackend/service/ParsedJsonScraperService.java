@@ -1,6 +1,6 @@
 package com.curiodesk.scrapperbackend.service;
 
-import com.curiodesk.scrapperbackend.api.response.LinkedInProfileV1;
+import com.curiodesk.scrapperbackend.api.response.ParsedLinkedInProfileResponse;
 import com.curiodesk.scrapperbackend.api.response.ZenRowsResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,14 +17,14 @@ public class ParsedJsonScraperService {
         this.zenRowsClient = zenRowsClient;
     }
 
-    public LinkedInProfileV1 scrape(String url) {
+    public ParsedLinkedInProfileResponse scrape(String url) {
         log.info("Scraping LinkedIn profile for URL: {}", url);
         ZenRowsResponse response = zenRowsClient.fetchProfile(url);
 
         return scrapeFromParsedField(url, response);
     }
 
-    LinkedInProfileV1 scrapeFromParsedField(String url, ZenRowsResponse response) {
+    ParsedLinkedInProfileResponse scrapeFromParsedField(String url, ZenRowsResponse response) {
 
         ZenRowsResponse.Parsed parsed = response != null
                 ? response.parsed()
@@ -37,7 +37,7 @@ public class ParsedJsonScraperService {
                 ? parsed.currentPosition()
                 : null;
 
-        return LinkedInProfileV1.builder()
+        return ParsedLinkedInProfileResponse.builder()
                 .profileUrl(url)
                 .vanityUrl(member != null ? member.vanityUrl() : null)
                 .fullName(member != null ? member.fullName() : null)
@@ -55,14 +55,14 @@ public class ParsedJsonScraperService {
                 .build();
     }
 
-    private LinkedInProfileV1.CurrentPosition mapCurrentPosition(
+    private ParsedLinkedInProfileResponse.CurrentPosition mapCurrentPosition(
             ZenRowsResponse.CurrentPosition currentPosition
     ) {
         if (currentPosition == null) {
             return null;
         }
 
-        return LinkedInProfileV1.CurrentPosition.builder()
+        return ParsedLinkedInProfileResponse.CurrentPosition.builder()
                 .companyName(currentPosition.companyName())
                 .companyLinkedinUrl(currentPosition.companyLinkedinUrl())
                 .companyLogoUrl(currentPosition.companyLogoUrl())
@@ -70,13 +70,13 @@ public class ParsedJsonScraperService {
                 .build();
     }
 
-    private List<LinkedInProfileV1.Experience> mapExperiences(List<ZenRowsResponse.Experience> experience) {
+    private List<ParsedLinkedInProfileResponse.Experience> mapExperiences(List<ZenRowsResponse.Experience> experience) {
         if (experience == null) {
             return List.of();
         }
 
         return experience.stream()
-                .map(exp -> LinkedInProfileV1.Experience
+                .map(exp -> ParsedLinkedInProfileResponse.Experience
                         .builder()
                         .companyName(exp.companyName())
                         .description(exp.description())
@@ -86,7 +86,7 @@ public class ParsedJsonScraperService {
                 .toList();
     }
 
-    private List<LinkedInProfileV1.Post> mapPosts(
+    private List<ParsedLinkedInProfileResponse.Post> mapPosts(
             List<ZenRowsResponse.Post> posts
     ) {
         if (posts == null) {
@@ -94,7 +94,7 @@ public class ParsedJsonScraperService {
         }
 
         return posts.stream()
-                .map(post -> LinkedInProfileV1.Post
+                .map(post -> ParsedLinkedInProfileResponse.Post
                         .builder()
                         .text(post.text())
                         .datePublished(post.datePublished())

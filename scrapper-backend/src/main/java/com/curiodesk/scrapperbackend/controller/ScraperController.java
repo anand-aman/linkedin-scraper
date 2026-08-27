@@ -2,9 +2,9 @@ package com.curiodesk.scrapperbackend.controller;
 
 import com.curiodesk.scrapperbackend.api.request.ScrapeProfileRequest;
 import com.curiodesk.scrapperbackend.api.response.ErrorResponse;
-import com.curiodesk.scrapperbackend.api.response.LinkedInProfileV1;
-import com.curiodesk.scrapperbackend.api.response.LinkedInProfileV2;
-import com.curiodesk.scrapperbackend.api.response.LinkedInProfileV3;
+import com.curiodesk.scrapperbackend.api.response.ParsedLinkedInProfileResponse;
+import com.curiodesk.scrapperbackend.api.response.HtmlLinkedInProfileResponse;
+import com.curiodesk.scrapperbackend.api.response.HybridLinkedInProfileResponse;
 import com.curiodesk.scrapperbackend.exception.BadRequestException;
 import com.curiodesk.scrapperbackend.service.HtmlScraperService;
 import com.curiodesk.scrapperbackend.service.HybridScrapperService;
@@ -51,9 +51,9 @@ public class ScraperController {
                             mediaType = "application/json",
                             schema = @Schema(
                                     oneOf = {
-                                            LinkedInProfileV3.class,
-                                            LinkedInProfileV2.class,
-                                            LinkedInProfileV1.class
+                                            HybridLinkedInProfileResponse.class,
+                                            HtmlLinkedInProfileResponse.class,
+                                            ParsedLinkedInProfileResponse.class
                                     }
                             )
                     )

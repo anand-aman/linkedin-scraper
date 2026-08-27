@@ -1,8 +1,8 @@
 package com.curiodesk.scrapperbackend.service;
 
-import com.curiodesk.scrapperbackend.api.response.LinkedInProfileV1;
-import com.curiodesk.scrapperbackend.api.response.LinkedInProfileV2;
-import com.curiodesk.scrapperbackend.api.response.LinkedInProfileV3;
+import com.curiodesk.scrapperbackend.api.response.ParsedLinkedInProfileResponse;
+import com.curiodesk.scrapperbackend.api.response.HtmlLinkedInProfileResponse;
+import com.curiodesk.scrapperbackend.api.response.HybridLinkedInProfileResponse;
 import com.curiodesk.scrapperbackend.api.response.ZenRowsResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -44,7 +44,7 @@ class HybridScrapperServiceTest {
         String url = "https://www.linkedin.com/in/example/";
         ZenRowsResponse zenRowsResponse = new ZenRowsResponse("<html>profile</html>", null);
 
-        LinkedInProfileV1 parsedProfile = LinkedInProfileV1.builder()
+        ParsedLinkedInProfileResponse parsedProfile = ParsedLinkedInProfileResponse.builder()
                 .profileUrl(url)
                 .fullName("Parsed Name")
                 .headline("Parsed Headline")
@@ -53,7 +53,7 @@ class HybridScrapperServiceTest {
                 .profilePhotoUrl("https://images.example/parsed-profile.jpg")
                 .coverImageUrl("https://images.example/parsed-cover.jpg")
                 .posts(List.of(
-                        LinkedInProfileV1.Post.builder()
+                        ParsedLinkedInProfileResponse.Post.builder()
                                 .text("Parsed post")
                                 .postUrl("https://linkedin.com/posts/1")
                                 .datePublished("2026-08-01")
@@ -64,7 +64,7 @@ class HybridScrapperServiceTest {
                 .languages(List.of("English"))
                 .build();
 
-        LinkedInProfileV2 htmlProfile = new LinkedInProfileV2();
+        HtmlLinkedInProfileResponse htmlProfile = new HtmlLinkedInProfileResponse();
         htmlProfile.setName("HTML Name");
         htmlProfile.setDescription("HTML description");
         htmlProfile.setLocation("Pune, India");
@@ -89,11 +89,11 @@ class HybridScrapperServiceTest {
                 )
         ));
 
-        LinkedInProfileV2.Experience htmlExperience = new LinkedInProfileV2.Experience();
+        HtmlLinkedInProfileResponse.Experience htmlExperience = new HtmlLinkedInProfileResponse.Experience();
         htmlExperience.setCompany("Contoso Technologies");
         htmlProfile.setExperience(List.of(htmlExperience));
 
-        LinkedInProfileV2.Education htmlEducation = new LinkedInProfileV2.Education();
+        HtmlLinkedInProfileResponse.Education htmlEducation = new HtmlLinkedInProfileResponse.Education();
         htmlEducation.setInstitution("Stanford University");
         htmlProfile.setEducation(List.of(htmlEducation));
 
@@ -101,7 +101,7 @@ class HybridScrapperServiceTest {
         when(parsedJsonScraperService.scrapeFromParsedField(url, zenRowsResponse)).thenReturn(parsedProfile);
         when(htmlScraperService.scrapeHtml("<html>profile</html>")).thenReturn(htmlProfile);
 
-        LinkedInProfileV3 result = service.scrape(url);
+        HybridLinkedInProfileResponse result = service.scrape(url);
 
         assertEquals("Parsed Name", result.fullName());
         assertEquals("Bengaluru, India", result.location());
@@ -125,10 +125,10 @@ class HybridScrapperServiceTest {
         String url = "https://www.linkedin.com/in/example/";
         ZenRowsResponse zenRowsResponse = new ZenRowsResponse("<html>profile</html>", null);
 
-        LinkedInProfileV1 parsedProfile = LinkedInProfileV1.builder()
+        ParsedLinkedInProfileResponse parsedProfile = ParsedLinkedInProfileResponse.builder()
                 .profileUrl(url)
                 .experiences(List.of(
-                        LinkedInProfileV1.Experience.builder()
+                        ParsedLinkedInProfileResponse.Experience.builder()
                                 .companyName("Parsed Fallback Company")
                                 .build()
                 ))
@@ -136,13 +136,13 @@ class HybridScrapperServiceTest {
                 .languages(List.of())
                 .build();
 
-        LinkedInProfileV2 htmlProfile = new LinkedInProfileV2();
+        HtmlLinkedInProfileResponse htmlProfile = new HtmlLinkedInProfileResponse();
 
-        LinkedInProfileV2.Experience swappedEducation = new LinkedInProfileV2.Experience();
+        HtmlLinkedInProfileResponse.Experience swappedEducation = new HtmlLinkedInProfileResponse.Experience();
         swappedEducation.setCompany("Massachusetts Institute of Technology");
         htmlProfile.setExperience(List.of(swappedEducation));
 
-        LinkedInProfileV2.Education swappedExperience = new LinkedInProfileV2.Education();
+        HtmlLinkedInProfileResponse.Education swappedExperience = new HtmlLinkedInProfileResponse.Education();
         swappedExperience.setInstitution("Contoso Technologies");
         htmlProfile.setEducation(List.of(swappedExperience));
 
@@ -150,7 +150,7 @@ class HybridScrapperServiceTest {
         when(parsedJsonScraperService.scrapeFromParsedField(url, zenRowsResponse)).thenReturn(parsedProfile);
         when(htmlScraperService.scrapeHtml("<html>profile</html>")).thenReturn(htmlProfile);
 
-        LinkedInProfileV3 result = service.scrape(url);
+        HybridLinkedInProfileResponse result = service.scrape(url);
 
         assertEquals(1, result.education().size());
         assertEquals(
@@ -166,13 +166,13 @@ class HybridScrapperServiceTest {
         );
     }
 
-    private LinkedInProfileV2.Post createHtmlPost(
+    private HtmlLinkedInProfileResponse.Post createHtmlPost(
             String text,
             String url,
             String publishedDate,
             Long likes
     ) {
-        LinkedInProfileV2.Post post = new LinkedInProfileV2.Post();
+        HtmlLinkedInProfileResponse.Post post = new HtmlLinkedInProfileResponse.Post();
         post.setText(text);
         post.setUrl(url);
         post.setPublishedDate(publishedDate);
@@ -180,14 +180,14 @@ class HybridScrapperServiceTest {
         return post;
     }
 
-    private LinkedInProfileV2.Article createHtmlArticle(
+    private HtmlLinkedInProfileResponse.Article createHtmlArticle(
             String title,
             String url,
             String publishedDate,
             String image,
             Long likes
     ) {
-        LinkedInProfileV2.Article article = new LinkedInProfileV2.Article();
+        HtmlLinkedInProfileResponse.Article article = new HtmlLinkedInProfileResponse.Article();
         article.setTitle(title);
         article.setUrl(url);
         article.setPublishedDate(publishedDate);

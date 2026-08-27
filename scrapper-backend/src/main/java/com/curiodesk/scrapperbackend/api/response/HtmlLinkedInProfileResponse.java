@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class LinkedInProfileV2 {
+public class HtmlLinkedInProfileResponse {
 
     private String name;
     private String profileUrl;
