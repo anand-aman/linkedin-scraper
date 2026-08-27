@@ -1,7 +1,8 @@
 FROM ghcr.io/cirruslabs/flutter:stable AS build
-WORKDIR /app
+USER root
+WORKDIR /workspace/app
 
-COPY scrapper-frontend/ /app/
+COPY scrapper-frontend/ /workspace/app/
 
 RUN flutter pub get
 RUN flutter build web --release --dart-define=API_BASE_URL=
@@ -9,6 +10,6 @@ RUN flutter build web --release --dart-define=API_BASE_URL=
 FROM nginx:1.27-alpine
 
 COPY scrapper-frontend/nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=build /app/build/web /usr/share/nginx/html
+COPY --from=build /workspace/app/build/web /usr/share/nginx/html
 
 EXPOSE 80
