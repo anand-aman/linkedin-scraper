@@ -1,7 +1,7 @@
 package com.curiodesk.scraperbackend.service;
 
 import com.curiodesk.scraperbackend.api.response.ParsedLinkedInProfileResponse;
-import main.com.curiodesk.scraperbackend.api.response.HtmlLinkedInProfileResponse;
+import com.curiodesk.scraperbackend.api.response.HtmlLinkedInProfileResponse;
 import com.curiodesk.scraperbackend.api.response.HybridLinkedInProfileResponse;
 import com.curiodesk.scraperbackend.api.response.ZenRowsResponse;
 import org.springframework.stereotype.Service;
