@@ -1,4 +1,4 @@
-package main.com.curiodesk.scraperbackend.exception;
+package com.curiodesk.scraperbackend.exception;
 
 import com.curiodesk.scraperbackend.api.response.ErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;

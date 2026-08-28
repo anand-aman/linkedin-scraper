@@ -1,4 +1,4 @@
-package main.com.curiodesk.scraperbackend;
+package com.curiodesk.scraperbackend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

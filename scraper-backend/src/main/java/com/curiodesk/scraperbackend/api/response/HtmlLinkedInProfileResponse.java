@@ -1,4 +1,4 @@
-package main.com.curiodesk.scraperbackend.api.response;
+package com.curiodesk.scraperbackend.api.response;
 
 import lombok.Data;
 

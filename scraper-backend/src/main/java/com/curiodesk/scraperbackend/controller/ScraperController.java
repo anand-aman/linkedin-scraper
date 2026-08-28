@@ -1,4 +1,4 @@
-package main.com.curiodesk.scraperbackend.controller;
+package com.curiodesk.scraperbackend.controller;
 
 import com.curiodesk.scraperbackend.api.request.ScrapeProfileRequest;
 import com.curiodesk.scraperbackend.api.response.ErrorResponse;

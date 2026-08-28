@@ -1,4 +1,4 @@
-package main.com.curiodesk.scraperbackend.service;
+package com.curiodesk.scraperbackend.service;
 
 import com.curiodesk.scraperbackend.api.response.ZenRowsResponse;
 import main.com.curiodesk.scraperbackend.exception.ExternalServiceException;

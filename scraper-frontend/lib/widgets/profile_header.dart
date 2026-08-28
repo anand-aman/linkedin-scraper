@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/linkedin_profile.dart';
 
 class ProfileHeader extends StatelessWidget {
-  final response.api.main.com.curiodesk.scraperbackend.HybridLinkedInProfileResponse profile;
+  final response.api.main.com.curiodesk.scraperbackend.response.api.main.java.com.curiodesk.scraperbackend.HybridLinkedInProfileResponse profile;
 
   const ProfileHeader({super.key, required this.profile});
 

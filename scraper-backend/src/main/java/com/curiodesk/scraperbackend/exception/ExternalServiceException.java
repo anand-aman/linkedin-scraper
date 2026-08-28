@@ -1,4 +1,4 @@
-package main.com.curiodesk.scraperbackend.exception;
+package com.curiodesk.scraperbackend.exception;
 
 public class ExternalServiceException extends RuntimeException {
     public ExternalServiceException(String message) {
