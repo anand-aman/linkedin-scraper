@@ -47,13 +47,25 @@ You can override the API base URL at build/run time with:
 
 ## Dockerized run (frontend + backend)
 
-1. Set the ZenRows API key in your shell (or in a `.env` file):
-   - PowerShell: `$env:ZENROWS_API_KEY="your_api_key"`
+1. Create your environment file once:
+   - `cp .env.example .env`
+   - edit `.env` and set `ZENROWS_API_KEY`
 2. From repository root, build and start both services:
-   - `docker compose up --build`
+   - `docker compose up -d --build`
 3. Access:
    - Frontend: `http://localhost`
    - Backend API: `http://localhost:8080`
    - Swagger UI (via frontend proxy): `http://localhost/swagger-ui/index.html`
+4. Check running services:
+   - `docker compose ps`
+   - `docker compose logs -f backend`
 
 In Docker, the frontend is served by Nginx and proxies `/api`, `/swagger-ui`, and `/api-docs` to the backend service. This keeps frontend API calls same-origin and avoids browser CORS issues.
+
+### Fresh EC2 setup (from scratch)
+
+1. Install Docker + Compose plugin.
+2. Clone repo and enter it.
+3. Create `.env` from `.env.example` and set your key.
+4. Run `sudo docker compose up -d --build`.
+5. Open `http://<EC2_PUBLIC_IP>/` (ensure SG allows inbound `80`).

@@ -35,3 +35,4 @@ build/
 /scrapper-frontend/.flutter-plugins
 /scrapper-frontend/.packages
 /scrapper-frontend/.dart_tool/
+.env

@@ -3,12 +3,13 @@ services:
     build:
       context: .
       dockerfile: scrapper-backend/Dockerfile
-    environment:
-      ZENROWS_API_KEY: ${ZENROWS_API_KEY:-}
+    env_file:
+      - .env
     ports:
       - "8080:8080"
     networks:
       - scrapper-network
+    restart: unless-stopped
 
   frontend:
     build:
@@ -20,6 +21,7 @@ services:
       - "80:80"
     networks:
       - scrapper-network
+    restart: unless-stopped
 
 networks:
   scrapper-network:
