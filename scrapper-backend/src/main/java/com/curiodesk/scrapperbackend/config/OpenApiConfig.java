@@ -11,7 +11,10 @@ import org.springframework.context.annotation.Configuration;
         info = @Info(
                 title = "Scrapper Backend API",
                 version = "v2",
-                description = "API for scraping LinkedIn profile data with parser types: parsed, html, hybrid (default)",
+                description = "REST API for scraping LinkedIn profile data. "
+                        + "Use POST /api/linkedin with a LinkedIn profile URL and optional query param "
+                        + "type=hybrid|html|parsed (hybrid is the default). "
+                        + "Responses return structured profile data or a standard error payload.",
                 contact = @Contact(name = "Scrapper Backend")
         ),
         servers = @Server(url = "/", description = "Default server")

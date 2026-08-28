@@ -21,7 +21,11 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
-@Tag(name = "LinkedIn Scrapper", description = "Endpoints to scrape LinkedIn profile data")
+@Tag(
+        name = "LinkedIn Scrapper",
+        description = "Endpoint for collecting profile details from a LinkedIn public profile URL "
+                + "using one of the available parser modes."
+)
 public class ScraperController {
 
     private final ParsedJsonScraperService parsedService;
@@ -41,12 +45,16 @@ public class ScraperController {
     @PostMapping("/linkedin")
     @Operation(
             summary = "Scrape LinkedIn profile by parser type",
-            description = "Set type=html for HTML parser, type=parsed for parsed JSON response, or omit type/use hybrid for the hybrid response."
+            description = "Submits a LinkedIn profile URL for scraping and returns profile details. "
+                    + "Parser mode is controlled with the optional query parameter 'type': "
+                    + "'hybrid' (default, merged output), 'html' (HTML-based extraction), "
+                    + "or 'parsed' (normalized parsed payload)."
     )
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "LinkedIn profile scraped successfully",
+                    description = "Profile data scraped successfully. "
+                            + "The response schema depends on the selected parser type.",
                     content = @Content(
                             mediaType = "application/json",
                             schema = @Schema(
@@ -60,28 +68,32 @@ public class ScraperController {
             ),
             @ApiResponse(
                     responseCode = "400",
-                    description = "Invalid request",
+                    description = "Invalid request body or unsupported type parameter value.",
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class))
             ),
             @ApiResponse(
                     responseCode = "502",
-                    description = "External scraping provider error",
+                    description = "Failed to fetch or parse profile data from the upstream scraping provider.",
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class))
             ),
             @ApiResponse(
                     responseCode = "500",
-                    description = "Unexpected server error",
+                    description = "Unexpected server-side error while processing the scrape request.",
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class))
             )
     })
     public ResponseEntity<Object> scrapeProfile(
             @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     required = true,
-                    description = "LinkedIn scrape request payload"
+                    description = "Request payload containing the LinkedIn profile URL to scrape."
             )
             @RequestBody ScrapeProfileRequest request,
             @Parameter(
-                    description = "Scrape type. Defaults to hybrid when omitted/blank.",
+                    description = "Optional parser mode. "
+                            + "Frontend calls omit this parameter and default to 'hybrid'. "
+                            + "'hybrid' returns merged data, 'html' returns HTML-derived data, "
+                            + "and 'parsed' returns normalized parsed data. Defaults to 'hybrid'.",
+                    example = "hybrid",
                     schema = @Schema(
                             allowableValues = {"hybrid", "html", "parsed"},
                             defaultValue = "hybrid"
