@@ -96,6 +96,27 @@ cd scraper-backend
 ./mvnw spring-boot:run
 ```
 
+## API (Single Endpoint)
+
+- **Method**: `POST`
+- **Endpoint**: `/api/linkedin`
+- **Query param (optional)**: `mode=hybrid|html|parsed` (default: `hybrid`)
+- **Payload (`application/json`)**:
+
+```json
+{
+  "url": "https://www.linkedin.com/in/john-doe/"
+}
+```
+
+### Sample POST request
+
+```bash
+curl -X POST "http://localhost:8080/api/linkedin?mode=hybrid" \
+  -H "Content-Type: application/json" \
+  -d "{\"url\":\"https://www.linkedin.com/in/john-doe/\"}"
+```
+
 ## Documentation
 
 - [API reference](docs/api.md)
