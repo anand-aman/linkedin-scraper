@@ -10,7 +10,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>scrapper-frontend</artifactId>
+    <artifactId>scraper-frontend</artifactId>
     <packaging>pom</packaging>
     <name>scrapper-frontend</name>
     <description>LinkedIn Scrapper Flutter Frontend</description>

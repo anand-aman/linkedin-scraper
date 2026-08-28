@@ -11,15 +11,15 @@
     </parent>
 
     <groupId>com.curiodesk</groupId>
-    <artifactId>linkedin-scrapper</artifactId>
+    <artifactId>linkedin-scraper</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>linkedin-scrapper</name>
-    <description>LinkedIn Scrapper - Multi-module project</description>
+    <name>linkedin-scraper</name>
+    <description>LinkedIn Scraper - Multi-module project</description>
 
     <modules>
-        <module>scrapper-backend</module>
-        <module>scrapper-frontend</module>
+        <module>scraper-backend</module>
+        <module>scraper-frontend</module>
     </modules>
 
 </project>

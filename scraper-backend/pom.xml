@@ -8,7 +8,7 @@
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>scrapper-backend</artifactId>
+    <artifactId>scraper-backend</artifactId>
     <name>scrapper-backend</name>
     <description>scrapper-backend</description>
     <url/>

@@ -14,7 +14,7 @@ services:
   frontend:
     build:
       context: .
-      dockerfile: scrapper-frontend/Dockerfile
+      dockerfile: scraper-frontend/Dockerfile
     depends_on:
       - backend
     ports:
