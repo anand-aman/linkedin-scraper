@@ -31,7 +31,7 @@ class ApiService {
       : Uri.base.resolve('/swagger-ui/index.html');
 
   Future<HybridLinkedInProfileResponse> scrapeProfile(String profileUrl) async {
-    final uri = buildUri('/api/linkedin', queryParameters: {'type': 'hybrid'});
+    final uri = buildUri('/api/linkedin');
     final response = await http.post(
       uri,
       headers: const {'Content-Type': 'application/json'},
