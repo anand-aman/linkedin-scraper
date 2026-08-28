@@ -4,8 +4,8 @@ A multi-module implementation of a LinkedIn profile scraping challenge. The back
 
 This repository contains:
 
-- **`scrapper-backend`**: Spring Boot REST API (core application)
-- **`scrapper-frontend`**: Flutter Web client for visualizing scraped results (demo/visualization layer)
+- **`scraper-backend`**: Spring Boot REST API (core application)
+- **`scraper-frontend`**: Flutter Web client for visualizing scraped results (demo/visualization layer)
 - **`docker-compose.yml`**: Runs backend and frontend together
 
 ## Features
@@ -23,7 +23,7 @@ This repository contains:
 ## Prerequisites
 
 - **Java 21** (backend build/runtime)
-- **Maven Wrapper** in `scrapper-backend` (`mvnw`, `mvnw.cmd`)
+- **Maven Wrapper** in `scraper-backend` (`mvnw`, `mvnw.cmd`)
 - **Flutter SDK** with web support (frontend local run)
 - **A Flutter-supported browser** (e.g., Chrome)
 - **Docker + Docker Compose** (containerized run)
@@ -85,14 +85,14 @@ Set `ZENROWS_API_KEY`, then run:
 
 ```powershell
 $env:ZENROWS_API_KEY="your_api_key_here"
-.\scrapper-backend\mvnw.cmd -f .\scrapper-backend\pom.xml spring-boot:run
+.\scraper-backend\mvnw.cmd -f .\scraper-backend\pom.xml spring-boot:run
 ```
 
 **bash (macOS/Linux)**
 
 ```bash
 export ZENROWS_API_KEY="your_api_key_here"
-cd scrapper-backend
+cd scraper-backend
 ./mvnw spring-boot:run
 ```
 

@@ -4,13 +4,13 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.curiodesk</groupId>
-        <artifactId>linkedin-scrapper</artifactId>
+        <artifactId>linkedin-scraper</artifactId>
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>scraper-backend</artifactId>
-    <name>scrapper-backend</name>
-    <description>scrapper-backend</description>
+    <name>scraper-backend</name>
+    <description>scraper-backend</description>
     <url/>
     <licenses>
         <license/>

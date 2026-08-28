@@ -2,15 +2,15 @@ FROM maven:3.9.9-eclipse-temurin-21 AS build
 WORKDIR /workspace
 
 COPY pom.xml ./pom.xml
-COPY scrapper-backend/pom.xml ./scrapper-backend/pom.xml
-COPY scrapper-backend/src ./scrapper-backend/src
+COPY scraper-backend/pom.xml ./scraper-backend/pom.xml
+COPY scraper-backend/src ./scraper-backend/src
 
-RUN mvn -f scrapper-backend/pom.xml -DskipTests package
+RUN mvn -f scraper-backend/pom.xml -DskipTests package
 
 FROM eclipse-temurin:21-jre
 WORKDIR /app
 
-COPY --from=build /workspace/scrapper-backend/target/*.jar /app/app.jar
+COPY --from=build /workspace/scraper-backend/target/*.jar /app/app.jar
 
 EXPOSE 8080
 

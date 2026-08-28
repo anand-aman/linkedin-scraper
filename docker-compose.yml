@@ -2,13 +2,13 @@ services:
   backend:
     build:
       context: .
-      dockerfile: scrapper-backend/Dockerfile
+      dockerfile: scraper-backend/Dockerfile
     env_file:
       - .env
     ports:
       - "8080:8080"
     networks:
-      - scrapper-network
+      - scraper-network
     restart: unless-stopped
 
   frontend:
@@ -20,9 +20,9 @@ services:
     ports:
       - "80:80"
     networks:
-      - scrapper-network
+      - scraper-network
     restart: unless-stopped
 
 networks:
-  scrapper-network:
+  scraper-network:
     driver: bridge

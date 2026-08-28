@@ -1,9 +1,9 @@
-package com.curiodesk.scrapperbackend.service;
+package com.curiodesk.scraperbackend.service;
 
-import com.curiodesk.scrapperbackend.api.response.ParsedLinkedInProfileResponse;
-import com.curiodesk.scrapperbackend.api.response.HtmlLinkedInProfileResponse;
-import com.curiodesk.scrapperbackend.api.response.HybridLinkedInProfileResponse;
-import com.curiodesk.scrapperbackend.api.response.ZenRowsResponse;
+import com.curiodesk.scraperbackend.api.response.ParsedLinkedInProfileResponse;
+import main.com.curiodesk.scraperbackend.api.response.HtmlLinkedInProfileResponse;
+import com.curiodesk.scraperbackend.api.response.HybridLinkedInProfileResponse;
+import com.curiodesk.scraperbackend.api.response.ZenRowsResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class HybridScrapperServiceTest {
+class HybridScraperServiceTest {
 
     @Mock
     private ZenRowsClient zenRowsClient;
@@ -28,11 +28,11 @@ class HybridScrapperServiceTest {
     @Mock
     private HtmlScraperService htmlScraperService;
 
-    private HybridScrapperService service;
+    private HybridScraperService service;
 
     @BeforeEach
     void setUp() {
-        service = new HybridScrapperService(
+        service = new HybridScraperService(
                 zenRowsClient,
                 parsedJsonScraperService,
                 htmlScraperService

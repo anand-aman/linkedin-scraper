@@ -21,7 +21,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final TextEditingController _urlController = TextEditingController();
   final ApiService _apiService = const ApiService();
-  HybridLinkedInProfileResponse? _profile;
+  response.api.main.com.curiodesk.scraperbackend.HybridLinkedInProfileResponse? _profile;
   String? _errorMessage;
   bool _isLoading = false;
 

@@ -1,6 +1,6 @@
-package com.curiodesk.scrapperbackend.exception;
+package main.com.curiodesk.scraperbackend.exception;
 
-import com.curiodesk.scrapperbackend.api.response.ErrorResponse;
+import com.curiodesk.scraperbackend.api.response.ErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

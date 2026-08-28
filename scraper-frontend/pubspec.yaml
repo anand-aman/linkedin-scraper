@@ -1,5 +1,5 @@
-name: scrapper_frontend
-description: LinkedIn Scrapper Flutter frontend
+name: scraper_frontend
+description: LinkedIn Scraper Flutter frontend
 publish_to: "none"
 version: 1.0.0+1
 

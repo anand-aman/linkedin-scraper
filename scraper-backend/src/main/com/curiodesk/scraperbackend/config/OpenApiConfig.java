@@ -1,4 +1,4 @@
-package com.curiodesk.scrapperbackend.config;
+package main.com.curiodesk.scraperbackend.config;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Contact;
@@ -9,13 +9,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @OpenAPIDefinition(
         info = @Info(
-                title = "Scrapper Backend API",
+                title = "Scraper Backend API",
                 version = "v2",
                 description = "REST API for scraping LinkedIn profile data. "
                         + "Use POST /api/linkedin with a LinkedIn profile URL and optional query param "
                         + "type=hybrid|html|parsed (hybrid is the default). "
                         + "Responses return structured profile data or a standard error payload.",
-                contact = @Contact(name = "Scrapper Backend")
+                contact = @Contact(name = "Scraper Backend")
         ),
         servers = @Server(url = "/", description = "Default server")
 )

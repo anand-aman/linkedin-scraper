@@ -8,7 +8,7 @@
   - CSS selectors for top-card basics/images
   - JSON-LD blocks for person/article/post metadata
   - anchor extraction for unique links
-- `HybridScrapperService` performs:
+- `HybridScraperService` performs:
   - field-level preference/fallback selection
   - post/article/experience/education deduplication
   - education-vs-experience correction heuristics using keyword hints

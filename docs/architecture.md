@@ -12,28 +12,28 @@ flowchart TD
 
 ## Component responsibilities
 
-- **Frontend (`scrapper-frontend`)**: collects profile URL input, calls API, renders profile sections.
-- **Backend (`scrapper-backend`)**: validates/dispatches scrape mode, calls scraping provider, parses/merges output, returns JSON.
+- **Frontend (`scraper-frontend`)**: collects profile URL input, calls API, renders profile sections.
+- **Backend (`scraper-backend`)**: validates/dispatches scrape mode, calls scraping provider, parses/merges output, returns JSON.
 - **Scraping/data layer**:
   - `ZenRowsClient`: calls ZenRows (`extract=auto`, JS render, premium proxy).
   - `ParsedJsonScraperService`: maps ZenRows parsed payload.
   - `HtmlScraperService`: parses returned HTML/JSON-LD via Jsoup + Jackson.
-  - `HybridScrapperService`: merges parsed + HTML data with fallback/deduping heuristics.
-- **Nginx (`scrapper-frontend/nginx.conf`)**: serves Flutter static files and proxies `/api`, `/swagger-ui`, `/api-docs` to backend.
+  - `HybridScraperService`: merges parsed + HTML data with fallback/deduping heuristics.
+- **Nginx (`scraper-frontend/nginx.conf`)**: serves Flutter static files and proxies `/api`, `/swagger-ui`, `/api-docs` to backend.
 
 ## Project Structure
 
 ```text
-linkedin-scrapper/
+linkedin-scraper/
 ├── pom.xml                         # parent Maven module descriptor
 ├── docker-compose.yml              # backend + frontend services
 ├── .env                            # runtime secret file used by docker compose (gitignored)
-├── scrapper-backend/
+├── scraper-backend/
 │   ├── pom.xml                     # Spring Boot backend module
 │   ├── Dockerfile
 │   ├── mvnw / mvnw.cmd
 │   └── src/main/
-│       ├── java/com/curiodesk/scrapperbackend/
+│       ├── java/com/curiodesk/scraperbackend/
 │       │   ├── controller/         # REST endpoint
 │       │   ├── service/            # scraping + parsing + merge services
 │       │   ├── api/request/        # request model
@@ -41,7 +41,7 @@ linkedin-scrapper/
 │       │   ├── config/             # CORS + OpenAPI config
 │       │   └── exception/          # exception types + global handler
 │       └── resources/application.yaml
-└── scrapper-frontend/
+└── scraper-frontend/
     ├── pubspec.yaml                # Flutter dependencies
     ├── Dockerfile
     ├── nginx.conf

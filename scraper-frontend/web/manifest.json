@@ -1,11 +1,11 @@
 {
-  "name": "LinkedIn Scrapper",
-  "short_name": "Scrapper",
+  "name": "LinkedIn Scraper",
+  "short_name": "Scraper",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#1976d2",
-  "description": "LinkedIn Scrapper Flutter web app",
+  "description": "LinkedIn Scraper Flutter web app",
   "orientation": "portrait-primary",
   "prefer_related_applications": false
 }

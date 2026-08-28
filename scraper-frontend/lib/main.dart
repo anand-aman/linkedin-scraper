@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'pages/home_page.dart';
 
 void main() {
-  runApp(const LinkedInScrapperApp());
+  runApp(const LinkedInScraperApp());
 }
 
-class LinkedInScrapperApp extends StatelessWidget {
-  const LinkedInScrapperApp({super.key});
+class LinkedInScraperApp extends StatelessWidget {
+  const LinkedInScraperApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'LinkedIn Scrapper',
+      title: 'LinkedIn Scraper',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF0A66C2)),

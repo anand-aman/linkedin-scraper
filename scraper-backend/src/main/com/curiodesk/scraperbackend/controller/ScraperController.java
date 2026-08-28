@@ -1,14 +1,14 @@
-package com.curiodesk.scrapperbackend.controller;
+package main.com.curiodesk.scraperbackend.controller;
 
-import com.curiodesk.scrapperbackend.api.request.ScrapeProfileRequest;
-import com.curiodesk.scrapperbackend.api.response.ErrorResponse;
-import com.curiodesk.scrapperbackend.api.response.ParsedLinkedInProfileResponse;
-import com.curiodesk.scrapperbackend.api.response.HtmlLinkedInProfileResponse;
-import com.curiodesk.scrapperbackend.api.response.HybridLinkedInProfileResponse;
-import com.curiodesk.scrapperbackend.exception.BadRequestException;
-import com.curiodesk.scrapperbackend.service.HtmlScraperService;
-import com.curiodesk.scrapperbackend.service.HybridScrapperService;
-import com.curiodesk.scrapperbackend.service.ParsedJsonScraperService;
+import com.curiodesk.scraperbackend.api.request.ScrapeProfileRequest;
+import com.curiodesk.scraperbackend.api.response.ErrorResponse;
+import com.curiodesk.scraperbackend.api.response.ParsedLinkedInProfileResponse;
+import main.com.curiodesk.scraperbackend.api.response.HtmlLinkedInProfileResponse;
+import com.curiodesk.scraperbackend.api.response.HybridLinkedInProfileResponse;
+import main.com.curiodesk.scraperbackend.exception.BadRequestException;
+import main.com.curiodesk.scraperbackend.service.HtmlScraperService;
+import main.com.curiodesk.scraperbackend.service.HybridScraperService;
+import main.com.curiodesk.scraperbackend.service.ParsedJsonScraperService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api")
 @Tag(
-        name = "LinkedIn Scrapper",
+        name = "LinkedIn Scraper",
         description = "Endpoint for collecting profile details from a LinkedIn public profile URL "
                 + "using one of the available parser modes."
 )
@@ -30,12 +30,12 @@ public class ScraperController {
 
     private final ParsedJsonScraperService parsedService;
     private final HtmlScraperService htmlService;
-    private final HybridScrapperService hybridService;
+    private final HybridScraperService hybridService;
 
     public ScraperController(
             ParsedJsonScraperService parsedService,
             HtmlScraperService htmlService,
-            HybridScrapperService hybridService
+            HybridScraperService hybridService
     ) {
         this.parsedService = parsedService;
         this.htmlService = htmlService;

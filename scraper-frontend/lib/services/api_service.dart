@@ -30,7 +30,7 @@ class ApiService {
       ? Uri.parse('$_normalizedBaseUrl/swagger-ui/index.html')
       : Uri.base.resolve('/swagger-ui/index.html');
 
-  Future<HybridLinkedInProfileResponse> scrapeProfile(String profileUrl) async {
+  Future<response.api.main.com.curiodesk.scraperbackend.HybridLinkedInProfileResponse> scrapeProfile(String profileUrl) async {
     final uri = buildUri('/api/linkedin');
     final response = await http.post(
       uri,
@@ -43,6 +43,6 @@ class ApiService {
     }
 
     final body = jsonDecode(response.body) as Map<String, dynamic>;
-    return HybridLinkedInProfileResponse.fromJson(body);
+    return response.api.main.com.curiodesk.scraperbackend.HybridLinkedInProfileResponse.fromJson(body);
   }
 }

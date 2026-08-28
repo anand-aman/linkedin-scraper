@@ -1,7 +1,7 @@
-package com.curiodesk.scrapperbackend.service;
+package main.com.curiodesk.scraperbackend.service;
 
-import com.curiodesk.scrapperbackend.api.response.ZenRowsResponse;
-import com.curiodesk.scrapperbackend.exception.ExternalServiceException;
+import com.curiodesk.scraperbackend.api.response.ZenRowsResponse;
+import main.com.curiodesk.scraperbackend.exception.ExternalServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;

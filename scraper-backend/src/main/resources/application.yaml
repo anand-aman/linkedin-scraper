@@ -1,6 +1,6 @@
 spring:
   application:
-    name: scrapper-backend
+    name: scraper-backend
 
 zenrows:
     api_key: ${ZENROWS_API_KEY:}

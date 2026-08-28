@@ -1,9 +1,9 @@
-package com.curiodesk.scrapperbackend.service;
+package main.com.curiodesk.scraperbackend.service;
 
-import com.curiodesk.scrapperbackend.api.response.ParsedLinkedInProfileResponse;
-import com.curiodesk.scrapperbackend.api.response.HtmlLinkedInProfileResponse;
-import com.curiodesk.scrapperbackend.api.response.HybridLinkedInProfileResponse;
-import com.curiodesk.scrapperbackend.api.response.ZenRowsResponse;
+import com.curiodesk.scraperbackend.api.response.ParsedLinkedInProfileResponse;
+import main.com.curiodesk.scraperbackend.api.response.HtmlLinkedInProfileResponse;
+import com.curiodesk.scraperbackend.api.response.HybridLinkedInProfileResponse;
+import com.curiodesk.scraperbackend.api.response.ZenRowsResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.Set;
 
 @Service
-public class HybridScrapperService {
+public class HybridScraperService {
 
     private static final Set<String> EDUCATION_HINTS = Set.of(
             "university", "college", "school", "institute", "academy",
@@ -29,7 +29,7 @@ public class HybridScrapperService {
     private final ParsedJsonScraperService parsedJsonScraperService;
     private final HtmlScraperService htmlScraperService;
 
-    public HybridScrapperService(
+    public HybridScraperService(
             ZenRowsClient zenRowsClient,
             ParsedJsonScraperService parsedJsonScraperService,
             HtmlScraperService htmlScraperService

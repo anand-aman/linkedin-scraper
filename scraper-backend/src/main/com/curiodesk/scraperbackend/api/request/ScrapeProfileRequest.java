@@ -1,4 +1,4 @@
-package com.curiodesk.scrapperbackend.api.request;
+package com.curiodesk.scraperbackend.api.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 

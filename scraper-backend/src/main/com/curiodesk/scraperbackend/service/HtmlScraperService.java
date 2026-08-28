@@ -1,7 +1,7 @@
-package com.curiodesk.scrapperbackend.service;
+package main.com.curiodesk.scraperbackend.service;
 
-import com.curiodesk.scrapperbackend.api.response.HtmlLinkedInProfileResponse;
-import com.curiodesk.scrapperbackend.api.response.ZenRowsResponse;
+import main.com.curiodesk.scraperbackend.api.response.HtmlLinkedInProfileResponse;
+import com.curiodesk.scraperbackend.api.response.ZenRowsResponse;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;

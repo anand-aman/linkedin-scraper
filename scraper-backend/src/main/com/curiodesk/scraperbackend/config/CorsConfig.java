@@ -1,4 +1,4 @@
-package com.curiodesk.scrapperbackend.config;
+package main.com.curiodesk.scraperbackend.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;

@@ -1,13 +1,13 @@
-package com.curiodesk.scrapperbackend;
+package main.com.curiodesk.scraperbackend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ScrapperBackendApplication {
+public class ScraperBackendApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ScrapperBackendApplication.class, args);
+        SpringApplication.run(ScraperBackendApplication.class, args);
     }
 
 }

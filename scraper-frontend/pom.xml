@@ -5,15 +5,15 @@
 
     <parent>
         <groupId>com.curiodesk</groupId>
-        <artifactId>linkedin-scrapper</artifactId>
+        <artifactId>linkedin-scraper</artifactId>
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>scraper-frontend</artifactId>
     <packaging>pom</packaging>
-    <name>scrapper-frontend</name>
-    <description>LinkedIn Scrapper Flutter Frontend</description>
+    <name>scraper-frontend</name>
+    <description>LinkedIn Scraper Flutter Frontend</description>
 
     <build>
         <plugins>
