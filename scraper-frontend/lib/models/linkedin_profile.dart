@@ -1,4 +1,4 @@
-class response.api.main.com.curiodesk.scraperbackend.response.api.main.java.com.curiodesk.scraperbackend.HybridLinkedInProfileResponse {
+class HybridLinkedInProfileResponse {
   final String? profileUrl;
   final String? vanityUrl;
   final String? fullName;
@@ -17,7 +17,7 @@ class response.api.main.com.curiodesk.scraperbackend.response.api.main.java.com.
   final List<HybridExperience> experiences;
   final List<HybridEducation> education;
 
-  response.api.main.com.curiodesk.scraperbackend.response.api.main.java.com.curiodesk.scraperbackend.HybridLinkedInProfileResponse({
+  HybridLinkedInProfileResponse({
     this.profileUrl,
     this.vanityUrl,
     this.fullName,
@@ -37,8 +37,8 @@ class response.api.main.com.curiodesk.scraperbackend.response.api.main.java.com.
     this.education = const [],
   });
 
-  factory response.api.main.com.curiodesk.scraperbackend.response.api.main.java.com.curiodesk.scraperbackend.HybridLinkedInProfileResponse.fromJson(Map<String, dynamic> json) {
-    return response.api.main.com.curiodesk.scraperbackend.response.api.main.java.com.curiodesk.scraperbackend.HybridLinkedInProfileResponse(
+  factory HybridLinkedInProfileResponse.fromJson(Map<String, dynamic> json) {
+    return HybridLinkedInProfileResponse(
       profileUrl: _toNullableString(json['profileUrl']),
       vanityUrl: _toNullableString(json['vanityUrl']),
       fullName: _toNullableString(json['fullName']),
@@ -111,14 +111,14 @@ class HybridCurrentPosition {
   factory HybridCurrentPosition.fromJson(Map<String, dynamic> json) {
     return HybridCurrentPosition(
       companyName:
-          response.api.main.com.curiodesk.scraperbackend.response.api.main.java.com.curiodesk.scraperbackend.HybridLinkedInProfileResponse._toNullableString(json['companyName']),
-      companyLinkedinUrl: response.api.main.com.curiodesk.scraperbackend.response.api.main.java.com.curiodesk.scraperbackend.HybridLinkedInProfileResponse._toNullableString(
+          HybridLinkedInProfileResponse._toNullableString(json['companyName']),
+      companyLinkedinUrl: HybridLinkedInProfileResponse._toNullableString(
         json['companyLinkedinUrl'],
       ),
-      companyLogoUrl: response.api.main.com.curiodesk.scraperbackend.response.api.main.java.com.curiodesk.scraperbackend.HybridLinkedInProfileResponse._toNullableString(
+      companyLogoUrl: HybridLinkedInProfileResponse._toNullableString(
         json['companyLogoUrl'],
       ),
-      jobTitle: response.api.main.com.curiodesk.scraperbackend.response.api.main.java.com.curiodesk.scraperbackend.HybridLinkedInProfileResponse._toNullableString(json['jobTitle']),
+      jobTitle: HybridLinkedInProfileResponse._toNullableString(json['jobTitle']),
     );
   }
 }
@@ -141,15 +141,15 @@ class HybridExperience {
   factory HybridExperience.fromJson(Map<String, dynamic> json) {
     return HybridExperience(
       companyName:
-          response.api.main.com.curiodesk.scraperbackend.response.api.main.java.com.curiodesk.scraperbackend.HybridLinkedInProfileResponse._toNullableString(json['companyName']),
+          HybridLinkedInProfileResponse._toNullableString(json['companyName']),
       companyUrl:
-          response.api.main.com.curiodesk.scraperbackend.response.api.main.java.com.curiodesk.scraperbackend.HybridLinkedInProfileResponse._toNullableString(json['companyUrl']),
+          HybridLinkedInProfileResponse._toNullableString(json['companyUrl']),
       jobTitle:
-          response.api.main.com.curiodesk.scraperbackend.response.api.main.java.com.curiodesk.scraperbackend.HybridLinkedInProfileResponse._toNullableString(json['jobTitle']),
+          HybridLinkedInProfileResponse._toNullableString(json['jobTitle']),
       description:
-          response.api.main.com.curiodesk.scraperbackend.response.api.main.java.com.curiodesk.scraperbackend.HybridLinkedInProfileResponse._toNullableString(json['description']),
+          HybridLinkedInProfileResponse._toNullableString(json['description']),
       location:
-          response.api.main.com.curiodesk.scraperbackend.response.api.main.java.com.curiodesk.scraperbackend.HybridLinkedInProfileResponse._toNullableString(json['location']),
+          HybridLinkedInProfileResponse._toNullableString(json['location']),
     );
   }
 }
@@ -170,10 +170,10 @@ class HybridPost {
   factory HybridPost.fromJson(Map<String, dynamic> json) {
     return HybridPost(
       datePublished:
-          response.api.main.com.curiodesk.scraperbackend.response.api.main.java.com.curiodesk.scraperbackend.HybridLinkedInProfileResponse._toNullableString(json['datePublished']),
-      likeCount: response.api.main.com.curiodesk.scraperbackend.response.api.main.java.com.curiodesk.scraperbackend.HybridLinkedInProfileResponse._toInt(json['likeCount']),
-      postUrl: response.api.main.com.curiodesk.scraperbackend.response.api.main.java.com.curiodesk.scraperbackend.HybridLinkedInProfileResponse._toNullableString(json['postUrl']),
-      text: response.api.main.com.curiodesk.scraperbackend.response.api.main.java.com.curiodesk.scraperbackend.HybridLinkedInProfileResponse._toNullableString(json['text']),
+          HybridLinkedInProfileResponse._toNullableString(json['datePublished']),
+      likeCount: HybridLinkedInProfileResponse._toInt(json['likeCount']),
+      postUrl: HybridLinkedInProfileResponse._toNullableString(json['postUrl']),
+      text: HybridLinkedInProfileResponse._toNullableString(json['text']),
     );
   }
 }
@@ -195,12 +195,12 @@ class HybridArticle {
 
   factory HybridArticle.fromJson(Map<String, dynamic> json) {
     return HybridArticle(
-      title: response.api.main.com.curiodesk.scraperbackend.response.api.main.java.com.curiodesk.scraperbackend.HybridLinkedInProfileResponse._toNullableString(json['title']),
-      url: response.api.main.com.curiodesk.scraperbackend.response.api.main.java.com.curiodesk.scraperbackend.HybridLinkedInProfileResponse._toNullableString(json['url']),
+      title: HybridLinkedInProfileResponse._toNullableString(json['title']),
+      url: HybridLinkedInProfileResponse._toNullableString(json['url']),
       publishedDate:
-          response.api.main.com.curiodesk.scraperbackend.response.api.main.java.com.curiodesk.scraperbackend.HybridLinkedInProfileResponse._toNullableString(json['publishedDate']),
-      image: response.api.main.com.curiodesk.scraperbackend.response.api.main.java.com.curiodesk.scraperbackend.HybridLinkedInProfileResponse._toNullableString(json['image']),
-      likes: response.api.main.com.curiodesk.scraperbackend.response.api.main.java.com.curiodesk.scraperbackend.HybridLinkedInProfileResponse._toInt(json['likes']),
+          HybridLinkedInProfileResponse._toNullableString(json['publishedDate']),
+      image: HybridLinkedInProfileResponse._toNullableString(json['image']),
+      likes: HybridLinkedInProfileResponse._toInt(json['likes']),
     );
   }
 }
@@ -221,12 +221,12 @@ class HybridEducation {
   factory HybridEducation.fromJson(Map<String, dynamic> json) {
     return HybridEducation(
       institution:
-          response.api.main.com.curiodesk.scraperbackend.response.api.main.java.com.curiodesk.scraperbackend.HybridLinkedInProfileResponse._toNullableString(json['institution']),
+          HybridLinkedInProfileResponse._toNullableString(json['institution']),
       institutionUrl:
-          response.api.main.com.curiodesk.scraperbackend.response.api.main.java.com.curiodesk.scraperbackend.HybridLinkedInProfileResponse._toNullableString(json['institutionUrl']),
+          HybridLinkedInProfileResponse._toNullableString(json['institutionUrl']),
       startDate:
-          response.api.main.com.curiodesk.scraperbackend.response.api.main.java.com.curiodesk.scraperbackend.HybridLinkedInProfileResponse._toNullableString(json['startDate']),
-      endDate: response.api.main.com.curiodesk.scraperbackend.response.api.main.java.com.curiodesk.scraperbackend.HybridLinkedInProfileResponse._toNullableString(json['endDate']),
+          HybridLinkedInProfileResponse._toNullableString(json['startDate']),
+      endDate: HybridLinkedInProfileResponse._toNullableString(json['endDate']),
     );
   }
 }

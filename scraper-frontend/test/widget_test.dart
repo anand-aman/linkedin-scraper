@@ -4,6 +4,7 @@ import 'package:scraper_frontend/main.dart';
 void main() {
   testWidgets('app renders', (WidgetTester tester) async {
     await tester.pumpWidget(const LinkedInScraperApp());
-    expect(find.text('Scraper'), findsOneWidget);
+    expect(find.text('LinkedIn Scraper'), findsOneWidget);
+    expect(find.text('Fetch'), findsOneWidget);
   });
 }
