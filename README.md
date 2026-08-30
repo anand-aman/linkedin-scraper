@@ -2,6 +2,9 @@
 
 A multi-module implementation of a LinkedIn profile scraping challenge. The backend API accepts a LinkedIn profile URL and returns structured JSON built from scraped data.
 
+> **Important:** LinkedIn generally does not directly allow unauthorized scraping under its platform terms.  
+> This project uses the **ZenRows API** to fetch profile page content instead of directly scraping LinkedIn.
+
 This repository contains:
 
 - **`scraper-backend`**: Spring Boot REST API (core application)
