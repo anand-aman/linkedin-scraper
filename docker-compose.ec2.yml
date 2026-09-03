@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  backend:
+    image: ${DOCKERHUB_USER}/linkedin-scraper-backend:${TAG}
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
+    networks:
+      - scraper-network
+    restart: unless-stopped
+    environment:
+      JAVA_TOOL_OPTIONS: "-Xms128m -Xmx384m"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  frontend:
+    image: ${DOCKERHUB_USER}/linkedin-scraper-frontend:${TAG}
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "80:80"
+    networks:
+      - scraper-network
+    restart: unless-stopped
+    environment:
+      API_BASE_URL: "http://localhost:8080"
+
+networks:
+  scraper-network:
+    driver: bridge
